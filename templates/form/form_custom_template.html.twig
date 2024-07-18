@@ -1,0 +1,13 @@
+{% block form_row %}
+	<div class="mb-4">
+		{{ form_label(form) }}
+		{% if form.vars.errors|length > 0 %}
+			{{ form_widget(form, { 'attr': { 'class': 'input-form border-red-500' } }) }}
+		{% else %}
+			{{ form_widget(form, { 'attr': { 'class': 'input-form border-none' } }) }}
+		{% endif %}
+		<div class="text-red-700">
+			{{ form_errors(form) }}
+		</div>
+	</div>
+{% endblock %}

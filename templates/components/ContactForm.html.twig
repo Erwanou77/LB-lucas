@@ -1,0 +1,20 @@
+<div{{attributes}}>
+	{% form_theme form 'form/form_custom_template.html.twig' %}
+	{{ form_start(form, {attr: {novalidate: true,'data-action': 'live#action:prevent','data-live-action-param': 'saveContact'}}) }}
+	<div class="grid grid-cols-2 gap-8">
+		{{ form_row(form.name) }}
+		{{ form_row(form.firstname) }}
+	</div>
+	{{ form_rest(form) }}
+	{% if isSubmit %}
+		<div class="mt-5">
+			<a href="{{ asset('uploads/livre_blanc.pdf') }}" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex gap-2 items-center" download>
+				<twig:ux:icon name="mdi:download" class="w-5 h-5"/>
+				Télécharger le pdf
+			</a>
+		</div>
+	{% endif %}
+
+	{{ form_end(form) }}
+</div>
+
