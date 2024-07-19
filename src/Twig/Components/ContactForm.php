@@ -6,8 +6,11 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
@@ -23,7 +26,7 @@ final class ContactForm extends AbstractController
     #[LiveProp]
     public bool $isSubmit = false;
 
-    public function __construct(private EntityManagerInterface $em, private ContactRepository $cr)
+    public function __construct(private EntityManagerInterface $em, private ContactRepository $cr, private MailerInterface $mi)
     {
         
     }
@@ -44,6 +47,18 @@ final class ContactForm extends AbstractController
             $this->em->persist($contact);
             $this->em->flush();
         }
+        $email = (new TemplatedEmail())
+            ->from('jepeuxpasjaiformation@lucaschamontin.com')
+            ->to('chamontin.lucas@gmail.com')
+            ->subject('Contact pour le livre blanc')
+
+            // path of the Twig template to render
+            ->htmlTemplate('emails/LivreBlanc.html.twig')
+            ->context([
+                'data' => $contact
+            ]);
+        
+        $this->mi->send($email);
         $this->isSubmit = true;
     }
 }

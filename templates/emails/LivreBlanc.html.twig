@@ -1,0 +1,48 @@
+{% apply inline_css(source('@styles/emails.css')) %}
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Nouvelle Demande de Livre Blanc</h1>
+        </div>
+        <div class="info">
+            <strong>Nom :</strong>
+            <span>{{data.name}}</span>
+        </div>
+        <div class="info">
+            <strong>Prénom :</strong>
+            <span>{{data.firstname}}</span>
+        </div>
+        <div class="info">
+            <strong>Email :</strong>
+            <span>{{data.email}}</span>
+        </div>
+        {% if data.company is not empty %}
+        <div class="info">
+            <strong>Nom de l'entreprise :</strong>
+            <span>{{data.company}}</span>
+        </div>
+        {% endif %}
+        {% if data.job is not empty %}
+        <div class="info">
+            <strong>Poste occupé dans l'entreprise :</strong>
+            <span>{{data.job}}</span>
+        </div>
+        {% endif %}
+        {% if data.linkedin is not empty %}
+        <div class="info">
+            <strong>LinkedIn :</strong>
+            <span><a href="{{data.linkedin}}" target="_blank">Lien linkedin</a></span>
+        </div>
+        {% endif %}
+        {% if data.message is not empty %}
+        <div class="info">
+            <strong>Message :</strong>
+            <span>{{data.message}}</span>
+        </div>
+        {% endif %}
+        <div class="footer">
+            <p>Vous avez reçu une nouvelle demande de livre blanc via le formulaire de contact du site.</p>
+        </div>
+    </div>
+</body>
+{% endapply %}
